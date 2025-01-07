@@ -61,3 +61,5 @@ if monthly_usage > 0:
     st.write(f"Estimated cost for the next month: {total_cost:.2f} (in your local currency)")
 else:
     st.write("Please enter a valid monthly energy consumption value.")
+
+st.markdown("##### This application was developed using a **Deep Learning model**")
