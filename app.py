@@ -24,7 +24,13 @@ def calculate_features(data):
 
 # Streamlit UI
 st.title("Energy Consumption Prediction")
-
+st.markdown("##### AI Engineer Bootcamp by Skillacademy")
+st.markdown("###### Author: Farhan Wily")
+st.write("""
+This tool predicts your energy consumption for the next month based on historical data.
+You will need to input your current monthly energy usage and the cost per kWh. 
+Follow the steps below to get started:
+""")
 # User input
 monthly_usage = st.number_input("Enter your monthly energy consumption (in kWh):", min_value=0.0)
 
