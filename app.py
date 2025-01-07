@@ -57,9 +57,9 @@ if monthly_usage > 0:
     total_cost = predicted_value[0][0] * cost_per_kWh
 
     # Display results
-    st.write(f"Estimated energy consumption for the next month: {predicted_value[0][0]:.2f} kWh")
-    st.write(f"Estimated cost for the next month: {total_cost:.2f} (in your local currency)")
+    st.write(f"Estimated energy consumption for the next month: **{predicted_value[0][0]:.2f} kWh**")
+    st.write(f"Estimated cost for the next month: **{total_cost:.2f}** (in your local currency)")
 else:
     st.write("Please enter a valid monthly energy consumption value.")
 
-st.markdown("##### This application was developed using a **Deep Learning model**")
+st.write("This application was developed using a **Deep Learning model**")
