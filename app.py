@@ -31,35 +31,37 @@ This tool predicts your energy consumption for the next month based on historica
 You will need to input your current monthly energy usage and the cost per kWh. 
 Follow the steps below to get started:
 """)
+
 # User input
 monthly_usage = st.number_input("Enter your monthly energy consumption (in kWh):", min_value=0.0)
+cost_per_kWh = st.number_input("Enter the cost per kWh (in your local currency):", min_value=0.01)
 
-# When user inputs a value
-if monthly_usage > 0:
-    # Simulate the past consumption data
-    past_consumption_data = pd.Series(np.random.rand(100) * 10)  # Simulated past consumption data (100 months)
+# Button to trigger prediction
+if st.button("Predict"):
+    if monthly_usage > 0:
+        # Simulate the past consumption data
+        past_consumption_data = pd.Series(np.random.rand(100) * 10)  # Simulated past consumption data (100 months)
 
-    # Calculate lag features and rolling average
-    lag_1, lag_2, rolling_avg_24 = calculate_features(past_consumption_data)
+        # Calculate lag features and rolling average
+        lag_1, lag_2, rolling_avg_24 = calculate_features(past_consumption_data)
 
-    # Scale the input features
-    input_data = np.array([[lag_1, lag_2, rolling_avg_24]])
-    input_scaled = input_scaler.fit_transform(input_data)
+        # Scale the input features
+        input_data = np.array([[lag_1, lag_2, rolling_avg_24]])
+        input_scaled = input_scaler.fit_transform(input_data)
 
-    # Make a prediction using the trained model
-    prediction = model.predict(input_scaled)
+        # Make a prediction using the trained model
+        prediction = model.predict(input_scaled)
 
-    # Rescale the prediction to the original scale
-    predicted_value = output_scaler.inverse_transform(prediction)
+        # Rescale the prediction to the original scale
+        predicted_value = output_scaler.inverse_transform(prediction)
 
-    # Calculate the estimated cost (optional)
-    cost_per_kWh = st.number_input("Enter the cost per kWh (in your local currency):", min_value=0.01)
-    total_cost = predicted_value[0][0] * cost_per_kWh
+        # Calculate the estimated cost
+        total_cost = predicted_value[0][0] * cost_per_kWh
 
-    # Display results
-    st.write(f"Estimated energy consumption for the next month: **{predicted_value[0][0]:.2f} kWh**")
-    st.write(f"Estimated cost for the next month: **{total_cost:.2f}** (in your local currency)")
-else:
-    st.write("Please enter a valid monthly energy consumption value.")
+        # Display results
+        st.write(f"Estimated energy consumption for the next month: **{predicted_value[0][0]:.2f} kWh**")
+        st.write(f"Estimated cost for the next month: **{total_cost:.2f}** (in your local currency)")
+    else:
+        st.error("Please enter a valid monthly energy consumption value.")
 
 st.write("This application was developed using a **Deep Neural Network (DNN) Model**")
