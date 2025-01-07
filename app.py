@@ -13,10 +13,11 @@ input_scaler = MinMaxScaler(feature_range=(0, 1))
 output_scaler = MinMaxScaler(feature_range=(0, 1))
 
 # Simulate historical data for scaler fitting (replace this with your actual data)
-historical_data = np.random.rand(100, 3) * 100  # Replace with actual historical input data
+historical_data = np.random.rand(100, 3) * 100
 input_scaler.fit(historical_data)
 
-output_scaler.fit(np.array([[0], [100]]))  # Replace [0, 100] with actual range of target values
+# Fit output scaler based on actual energy consumption range
+output_scaler.fit(np.array([[historical_data[:, 0].min()], [historical_data[:, 0].max()]]))
 
 # Function to calculate lag_1, lag_2, and rolling_avg_24
 def calculate_features(data, new_value):
