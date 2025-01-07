@@ -62,4 +62,4 @@ if monthly_usage > 0:
 else:
     st.write("Please enter a valid monthly energy consumption value.")
 
-st.write("This application was developed using a **Deep Learning model**")
+st.write("This application was developed using a **Deep Neural Network (DNN) Model**")
