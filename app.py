@@ -6,7 +6,7 @@ from tensorflow.keras.models import load_model
 from sklearn.preprocessing import MinMaxScaler
 
 # Load the pre-trained model
-model = load_model('dnn_energy_consumption.keras')
+model = load_model('dnn_energy_consumption.keras', compile=False)
 
 # Initialize scalers
 input_scaler = MinMaxScaler(feature_range=(0, 1))
