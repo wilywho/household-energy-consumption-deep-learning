@@ -13,7 +13,7 @@ input_scaler = MinMaxScaler(feature_range=(0, 1))
 output_scaler = MinMaxScaler(feature_range=(0, 1))
 
 # Simulate historical data for scaler fitting (replace this with your actual data)
-historical_data = np.random.rand(100, 3) * 100
+historical_data = np.random.rand(100, 3) * 100  # Replace with real historical data
 input_scaler.fit(historical_data)
 
 # Fit output scaler based on actual energy consumption range
@@ -52,7 +52,7 @@ if st.button("Predict"):
 
         # Scale the input features
         input_data = np.array([[lag_1, lag_2, rolling_avg_24]])
-        input_scaled = input_scaler.transform(input_data)
+        input_scaled = input_scaler.transform(input_data)  # Use transform, not fit_transform
 
         # Make a prediction using the trained model
         prediction = model.predict(input_scaled)
@@ -68,6 +68,5 @@ if st.button("Predict"):
         st.write(f"Estimated cost for the next month: **{total_cost:.2f}** (in your local currency)")
     else:
         st.write("Please enter a valid monthly energy consumption value.")
-
 
 st.write("This application was developed using a **Deep Neural Network (DNN) Model**")
