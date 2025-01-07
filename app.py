@@ -20,9 +20,9 @@ output_scaler.fit(np.array([[0], [100]]))  # Replace [0, 100] with actual range 
 
 # Function to calculate lag_1, lag_2, and rolling_avg_24
 def calculate_features(data, new_value):
-    data = data.append(pd.Series(new_value), ignore_index=True)
-    lag_1 = data.iloc[-2]  # Last value before the current month
-    lag_2 = data.iloc[-3]  # Value two months ago
+    data = pd.concat([data, pd.Series([new_value])], ignore_index=True)
+    lag_1 = data.iloc[-2] if len(data) >= 2 else new_value  # Last value before the current month
+    lag_2 = data.iloc[-3] if len(data) >= 3 else new_value  # Value two months ago
     rolling_avg_24 = data.iloc[-24:].mean() if len(data) >= 24 else data.mean()
     return lag_1, lag_2, rolling_avg_24
 
@@ -40,6 +40,7 @@ Follow the steps below to get started:
 past_consumption_data = pd.Series(np.random.rand(100) * 100)  # Simulated past consumption data (100 months)
 
 # User input
+st.write("Press 'Enter' after you input the data")
 monthly_usage = st.number_input("Enter your monthly energy consumption (in kWh):", min_value=0.0)
 cost_per_kWh = st.number_input("Enter the cost per kWh (in your local currency):", min_value=0.01)
 
